@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: desafio-sicredi-service
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/desafio_api}
+    username: ${DATASOURCE_USER:desafio}
+    password: ${DATASOURCE_PASS:desafioApi}
+
+  liquibase:
+    change-log: classpath:db/master.yaml
+    contexts: dev, local
+#    enabled: false
+#
+#  jpa:
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    hibernate:
+#      ddl-auto: none
+#    generate-ddl: false
+
+event:
+  cron: 30 * * * * *
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    password: ${RABBITMQ_PASS:guest}
+    username: ${RABBITMQ_USER:guest}
+    virtualHost: ${RABBITMQ_VHOST:/}
+    desafio:
+      exchange: desafio.pauta.exchange
+      queue: notificacao.pauta.queue
+      routing-key: '#'
+

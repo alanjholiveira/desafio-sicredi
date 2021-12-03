@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres:14-alpine
+    container_name: db_desafio_api
+    hostname: app_db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: desafio
+      POSTGRES_PASSWORD: desafioApi
+      POSTGRES_DB: desafio_api
+    networks:
+      - DESAFIO_SICREDI_NETWORK
+    volumes:
+      - DESAFIO_SICREDI_DATA_DB:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3.9.10-management-alpine
+    container_name: rabbitmq_desafio_api
+    hostname: 'app-rabbitmq'
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 25676:25676
+    networks:
+      - DESAFIO_SICREDI_NETWORK
+    volumes:
+      - DESAFIO_SICREDI_DATA_RABBITMQ:/var/lib/rabbitmq/mnesia/
+
+volumes:
+  DESAFIO_SICREDI_DATA_DB:
+  DESAFIO_SICREDI_DATA_RABBITMQ:
+
+networks:
+  DESAFIO_SICREDI_NETWORK:
+    driver: "bridge"

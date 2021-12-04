@@ -2,22 +2,6 @@ version: '3.8'
 
 services:
 
-  app:
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    container_name: app_api
-    ports:
-      - "8080:8080"
-    environment:
-      DATASOURCE_URL: jdbc:postgresql://db_desafio_api:5432/desafio_api
-      RABBITMQ_HOST: rabbitmq_desafio_api
-    networks:
-      - DESAFIO_SICREDI_NETWORK
-    depends_on:
-      - db
-      - rabbitmq
-
   db:
     image: postgres:14-alpine
     container_name: db_desafio_api
@@ -45,6 +29,22 @@ services:
       - DESAFIO_SICREDI_NETWORK
     volumes:
       - DESAFIO_SICREDI_DATA_RABBITMQ:/var/lib/rabbitmq/mnesia/
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: app_api
+    ports:
+      - "8080:8080"
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://db_desafio_api:5432/desafio_api
+      RABBITMQ_HOST: rabbitmq_desafio_api
+    networks:
+      - DESAFIO_SICREDI_NETWORK
+    depends_on:
+      - db
+      - rabbitmq
 
 volumes:
   DESAFIO_SICREDI_DATA_DB:

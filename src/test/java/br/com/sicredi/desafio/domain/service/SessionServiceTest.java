@@ -3,6 +3,9 @@ package br.com.sicredi.desafio.domain.service;
 import br.com.sicredi.desafio.builder.entity.PollBuilder;
 import br.com.sicredi.desafio.builder.entity.SessionBuilder;
 import br.com.sicredi.desafio.domain.entity.Session;
+import br.com.sicredi.desafio.infrastructure.exception.AssociateNotFoundException;
+import br.com.sicredi.desafio.infrastructure.exception.PollNotFoundException;
+import br.com.sicredi.desafio.infrastructure.exception.SessionOpenException;
 import br.com.sicredi.desafio.infrastructure.repository.PollRepository;
 import br.com.sicredi.desafio.infrastructure.repository.SessionRepository;
 import org.junit.jupiter.api.Test;
@@ -17,8 +20,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -63,6 +65,37 @@ class SessionServiceTest {
 
         assertNotNull(response);
         assertEquals(sessionBuilder, response);
+    }
+
+    @Test
+    void when_open_session_return_bad_request_exist_poll() throws ParseException {
+        Session sessionBuilder = builder.construirEntidade();
+
+        when(repository.save(sessionBuilder)).thenReturn(sessionBuilder);
+        when(repository.findById(sessionBuilder.getId())).thenReturn(Optional.of(sessionBuilder));
+        when(repository.existsByPoll(sessionBuilder.getPoll())).thenReturn(Boolean.TRUE);
+        when(pollRepository.findById(sessionBuilder.getPoll().getId()))
+                .thenReturn(Optional.of(pollBuilder.construirEntidade()));
+
+        assertThrows(SessionOpenException.class, () -> {
+            service.openSession(sessionBuilder);
+        });
+
+    }
+
+    @Test
+    void when_open_session_return_not_found_poll() throws ParseException {
+        Session sessionBuilder = builder.construirEntidade();
+
+        when(repository.save(sessionBuilder)).thenReturn(sessionBuilder);
+        when(repository.findById(sessionBuilder.getId())).thenReturn(Optional.of(sessionBuilder));
+        when(pollRepository.findById(sessionBuilder.getPoll().getId()))
+                .thenReturn(Optional.empty());
+
+        assertThrows(PollNotFoundException.class, () -> {
+            service.openSession(sessionBuilder);
+        });
+
     }
 
 }

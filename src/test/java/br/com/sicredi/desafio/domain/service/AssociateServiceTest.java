@@ -5,7 +5,9 @@ import br.com.sicredi.desafio.domain.entity.Associate;
 import br.com.sicredi.desafio.infrastructure.client.AssociateStatusClient;
 import br.com.sicredi.desafio.infrastructure.client.response.StatusResponse;
 import br.com.sicredi.desafio.infrastructure.enums.AssociateStatus;
+import br.com.sicredi.desafio.infrastructure.exception.AssociateNotFoundException;
 import br.com.sicredi.desafio.infrastructure.repository.AssociateRepository;
+import feign.FeignException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,8 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.text.ParseException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -59,6 +60,19 @@ class AssociateServiceTest {
 
         assertNotNull(associate);
         assertEquals(associateBuild, associate);
+    }
+
+    @Test
+    void when_save_return_status_not_found() throws ParseException {
+        Associate associateBuild = associateBuilder.construirEntidade();
+        when(repository.save(associateBuild)).thenReturn(associateBuild);
+        when(statusClient.getStatus(associateBuild.getTaxId()))
+                .thenThrow(FeignException.class);
+
+        assertThrows(AssociateNotFoundException.class, () -> {
+            service.save(associateBuild);
+        });
+
     }
 
 }

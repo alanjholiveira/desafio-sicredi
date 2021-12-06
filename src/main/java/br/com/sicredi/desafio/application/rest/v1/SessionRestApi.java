@@ -60,7 +60,7 @@ public class SessionRestApi {
         log.info("Receiving session opening request. {}", request);
         Session session = service.openSession(SessionMapper.toEntity(request));
 
-        return ResponseEntity.ok(SessionMapper.toResponse(session));
+        return new ResponseEntity<>(SessionMapper.toResponse(session), HttpStatus.CREATED);
     }
 
 

@@ -44,7 +44,6 @@ public class SessionService {
 
         log.info("Saving poll session to database");
         return repository.save(entity);
-
     }
 
     private void checkPollOpen(Poll poll) {

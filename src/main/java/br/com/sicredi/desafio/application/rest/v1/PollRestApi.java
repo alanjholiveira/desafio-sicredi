@@ -59,7 +59,7 @@ public class PollRestApi {
         log.info("Receiving a request to register a new poll. {}", request);
         Poll poll = service.save(PollMapper.toEntity(request));
 
-        return ResponseEntity.ok(PollMapper.toResponse(poll));
+        return new ResponseEntity<>(PollMapper.toResponse(poll), HttpStatus.CREATED);
     }
 
 }

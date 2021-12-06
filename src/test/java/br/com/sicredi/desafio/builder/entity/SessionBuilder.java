@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -18,7 +19,8 @@ public class SessionBuilder extends ConstrutorDeEntidade<Session, UUID> {
     @Autowired
     private SessionRepository repository;
 
-    @Autowired PollBuilder pollBuilder;
+    @Autowired
+    private PollBuilder pollBuilder;
 
     @Override
     public Session construirEntidade() throws ParseException {

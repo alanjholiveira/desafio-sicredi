@@ -59,7 +59,7 @@ public class AssociateRestApi {
         log.info("Receiving a request to register a new member. {}", request);
         Associate associate = service.save(AssociateMapper.toEntity(request));
 
-        return ResponseEntity.ok(AssociateMapper.toResponse(associate));
+        return new ResponseEntity<>(AssociateMapper.toResponse(associate), HttpStatus.CREATED);
     }
 
 }

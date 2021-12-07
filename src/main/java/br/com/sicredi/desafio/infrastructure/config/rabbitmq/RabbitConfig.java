@@ -17,7 +17,7 @@ public class RabbitConfig {
     private String host;
 
     @Value("${event.rabbitmq.port}")
-    private String port;
+    private Integer port;
 
     @Value("${event.rabbitmq.username}")
     private String username;
@@ -40,8 +40,8 @@ public class RabbitConfig {
     }
 
     @Bean
-    public RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
-        return new RabbitAdmin(connectionFactory);
+    public RabbitAdmin rabbitAdmin() {
+        return new RabbitAdmin(rabbitDefaultConnectionFactory());
     }
 
     @Bean
@@ -52,11 +52,12 @@ public class RabbitConfig {
     }
 
     private ConnectionFactory rabbitDefaultConnectionFactory() {
-        CachingConnectionFactory connectionFactory = new CachingConnectionFactory(host);
-        connectionFactory.setUsername(port);
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+        connectionFactory.setHost(host);
+        connectionFactory.setPort(port);
         connectionFactory.setVirtualHost(virtualHost);
         connectionFactory.setUsername(username);
-        connectionFactory.setUsername(password);
+        connectionFactory.setPassword(password);
         connectionFactory.setRequestedHeartBeat(10);
         return connectionFactory;
     }

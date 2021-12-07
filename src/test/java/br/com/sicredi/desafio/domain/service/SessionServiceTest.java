@@ -3,7 +3,7 @@ package br.com.sicredi.desafio.domain.service;
 import br.com.sicredi.desafio.builder.entity.PollBuilder;
 import br.com.sicredi.desafio.builder.entity.SessionBuilder;
 import br.com.sicredi.desafio.domain.entity.Session;
-import br.com.sicredi.desafio.infrastructure.exception.AssociateNotFoundException;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.exception.PollNotFoundException;
 import br.com.sicredi.desafio.infrastructure.exception.SessionOpenException;
 import br.com.sicredi.desafio.infrastructure.repository.PollRepository;
@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-class SessionServiceTest {
+class SessionServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
     private SessionService service;

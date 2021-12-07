@@ -5,6 +5,7 @@ import br.com.sicredi.desafio.builder.entity.VoteBuilder;
 import br.com.sicredi.desafio.domain.entity.Result;
 import br.com.sicredi.desafio.domain.entity.Session;
 import br.com.sicredi.desafio.domain.entity.Vote;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.enums.VoteType;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
-class ResultPollVotesProducerTest {
+class ResultPollVotesProducerTest extends AbstractIntegrationTest {
 
     @Mock
     private RabbitTemplate rabbitTemplate;

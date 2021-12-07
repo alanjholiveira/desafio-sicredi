@@ -16,11 +16,16 @@ import java.util.UUID;
 @Component
 public class SessionBuilder extends ConstrutorDeEntidade<Session, UUID> {
 
-    @Autowired
+//    @Autowired
     private SessionRepository repository;
 
-    @Autowired
+//    @Autowired
     private PollBuilder pollBuilder;
+
+    public SessionBuilder(SessionRepository repository, PollBuilder pollBuilder) {
+        this.repository = repository;
+        this.pollBuilder = pollBuilder;
+    }
 
     @Override
     public Session construirEntidade() throws ParseException {

@@ -2,6 +2,7 @@ package br.com.sicredi.desafio.domain.service;
 
 import br.com.sicredi.desafio.builder.entity.PollBuilder;
 import br.com.sicredi.desafio.domain.entity.Poll;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.repository.PollRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-class PollServiceTest {
+class PollServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
     private PollService service;

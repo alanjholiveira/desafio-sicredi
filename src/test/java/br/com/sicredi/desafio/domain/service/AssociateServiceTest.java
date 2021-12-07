@@ -4,6 +4,7 @@ import br.com.sicredi.desafio.builder.entity.AssociateBuilder;
 import br.com.sicredi.desafio.domain.entity.Associate;
 import br.com.sicredi.desafio.infrastructure.client.AssociateStatusClient;
 import br.com.sicredi.desafio.infrastructure.client.response.StatusResponse;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.enums.AssociateStatus;
 import br.com.sicredi.desafio.infrastructure.exception.AssociateNotFoundException;
 import br.com.sicredi.desafio.infrastructure.repository.AssociateRepository;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-class AssociateServiceTest {
+class AssociateServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
     private AssociateService service;

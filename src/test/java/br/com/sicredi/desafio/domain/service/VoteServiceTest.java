@@ -7,6 +7,7 @@ import br.com.sicredi.desafio.domain.entity.Associate;
 import br.com.sicredi.desafio.domain.entity.Result;
 import br.com.sicredi.desafio.domain.entity.Session;
 import br.com.sicredi.desafio.domain.entity.Vote;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.enums.AssociateStatus;
 import br.com.sicredi.desafio.infrastructure.enums.SessionStatus;
 import br.com.sicredi.desafio.infrastructure.enums.VoteType;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.text.ParseException;
 import java.util.Arrays;
@@ -36,7 +38,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-class VoteServiceTest {
+class VoteServiceTest extends AbstractIntegrationTest {
 
     @InjectMocks
     private VoteService service;

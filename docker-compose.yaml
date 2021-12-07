@@ -2,12 +2,28 @@ version: '3.8'
 
 services:
 
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: app_api
+    ports:
+      - "8080:8080"
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://db_desafio_api:5432/desafio_api
+      RABBITMQ_HOST: rabbitmq_desafio_api
+    networks:
+      - DESAFIO_SICREDI_NETWORK
+    depends_on:
+      - db
+      - rabbitmq
+
   db:
     image: postgres:14-alpine
     container_name: db_desafio_api
     hostname: app_db
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: desafio
       POSTGRES_PASSWORD: desafioApi
@@ -22,9 +38,9 @@ services:
     container_name: rabbitmq_desafio_api
     hostname: 'app-rabbitmq'
     ports:
-      - 15672:15672
-      - 5672:5672
-      - 25676:25676
+      - "15672:15672"
+      - "5672:5672"
+      - "25676:25676"
     networks:
       - DESAFIO_SICREDI_NETWORK
     volumes:

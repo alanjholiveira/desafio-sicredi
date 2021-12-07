@@ -5,14 +5,18 @@ import br.com.sicredi.desafio.application.rest.v1.request.PollRequest;
 import br.com.sicredi.desafio.builder.entity.PollBuilder;
 import br.com.sicredi.desafio.domain.entity.Poll;
 import br.com.sicredi.desafio.domain.service.PollService;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.util.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -23,7 +27,7 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class PollRestApiTest {
+class PollRestApiTest extends AbstractIntegrationTest {
 
     private static final String URL = "/v1/polls";
 

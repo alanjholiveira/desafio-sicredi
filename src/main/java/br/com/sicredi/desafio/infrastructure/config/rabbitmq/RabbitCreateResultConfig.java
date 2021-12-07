@@ -16,7 +16,7 @@ public class RabbitCreateResultConfig {
     @Value("${event.rabbitmq.desafio.queue}")
     private String queueValue;
 
-    @Value("${event.rabbitmq.desafio.exchange}")
+    @Value("${event.rabbitmq.desafio.routing-key}")
     private String routingKeyValue;
 
     private final RabbitAdmin rabbitAdmin;

@@ -7,21 +7,17 @@ import br.com.sicredi.desafio.builder.entity.SessionBuilder;
 import br.com.sicredi.desafio.domain.entity.Poll;
 import br.com.sicredi.desafio.domain.entity.Session;
 import br.com.sicredi.desafio.domain.service.SessionService;
-import br.com.sicredi.desafio.infrastructure.enums.SessionStatus;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.repository.PollRepository;
-import br.com.sicredi.desafio.infrastructure.repository.SessionRepository;
 import br.com.sicredi.desafio.infrastructure.util.TestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
@@ -35,9 +31,8 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.standaloneSetup;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 @Transactional
-class SessionRestApiTest {
+class SessionRestApiTest extends AbstractIntegrationTest {
 
     private static final String URL = "/v1/sessions";
 

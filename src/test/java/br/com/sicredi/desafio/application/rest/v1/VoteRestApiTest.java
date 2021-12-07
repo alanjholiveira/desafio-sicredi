@@ -11,6 +11,7 @@ import br.com.sicredi.desafio.domain.entity.Result;
 import br.com.sicredi.desafio.domain.entity.Session;
 import br.com.sicredi.desafio.domain.entity.Vote;
 import br.com.sicredi.desafio.domain.service.VoteService;
+import br.com.sicredi.desafio.infrastructure.config.testcontainers.AbstractIntegrationTest;
 import br.com.sicredi.desafio.infrastructure.enums.VoteType;
 import br.com.sicredi.desafio.infrastructure.repository.AssociateRepository;
 import br.com.sicredi.desafio.infrastructure.repository.SessionRepository;
@@ -38,7 +39,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class VoteRestApiTest {
+class VoteRestApiTest extends AbstractIntegrationTest {
 
     private static final String URL = "/v1/votes";
 
